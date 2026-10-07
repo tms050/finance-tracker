@@ -218,3 +218,15 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+#data
+data/raw/*
+data/processed/*
+data/db/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/db/.gitkeep
+*.pdf
+.venv/
+__pycache__/
+.ipynb_checkpoints/
