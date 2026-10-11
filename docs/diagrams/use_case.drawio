@@ -1,0 +1,68 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3">
+  <diagram id="use-case-v1" name="Use Case v1">
+    <mxGraphModel dx="4403" dy="1089" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-2" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fontSize=24;" vertex="1" parent="1">
+          <mxGeometry y="860" width="1040" height="950" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-3" value="" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;fontSize=24;" vertex="1" parent="1">
+          <mxGeometry x="230" y="950" width="790" height="810" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-11" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="SpbB86R2wyn1SRWOFSGj-1" target="SpbB86R2wyn1SRWOFSGj-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-12" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=none;endFill=0;" edge="1" parent="1" source="SpbB86R2wyn1SRWOFSGj-1" target="SpbB86R2wyn1SRWOFSGj-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-13" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=none;endFill=0;" edge="1" parent="1" source="SpbB86R2wyn1SRWOFSGj-1" target="SpbB86R2wyn1SRWOFSGj-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-17" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=none;endFill=0;" edge="1" parent="1" source="SpbB86R2wyn1SRWOFSGj-1" target="SpbB86R2wyn1SRWOFSGj-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-1" value="Пользователь&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=24;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1315" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-4" value="Финансовый трекер" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=24;" vertex="1" parent="1">
+          <mxGeometry x="500" y="970" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-5" value="UC-01&lt;div&gt;Загрузка файла-выписки в .PDF&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="360" y="1080" width="196.85" height="90.551" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-15" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;endFill=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="SpbB86R2wyn1SRWOFSGj-6" target="SpbB86R2wyn1SRWOFSGj-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-16" value="&quot;extend&quot;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Helvetica;fontSize=18;fontColor=default;labelBackgroundColor=default;" vertex="1" connectable="0" parent="SpbB86R2wyn1SRWOFSGj-15">
+          <mxGeometry x="0.0414" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-18" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;endFill=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="SpbB86R2wyn1SRWOFSGj-6" target="SpbB86R2wyn1SRWOFSGj-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-19" value="&quot;extend&quot;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Helvetica;fontSize=18;fontColor=default;labelBackgroundColor=default;" vertex="1" connectable="0" parent="SpbB86R2wyn1SRWOFSGj-18">
+          <mxGeometry x="0.0095" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-6" value="UC-02&lt;div&gt;Просмотр списка транзакций&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; text-align: start; text-wrap-mode: nowrap; background-color: transparent;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22UC-01%26lt%3Bdiv%26gt%3B%D0%97%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0%20%D1%84%D0%B0%D0%B9%D0%BB%D0%B0-%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B8%20%D0%B2%20.PDF%26lt%3B%2Fdiv%26gt%3B%22%20style%3D%22ellipse%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22360%22%20y%3D%221080%22%20width%3D%22170%22%20height%3D%2280%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="360" y="1240" width="196.85" height="90.551" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-7" value="UC-03&lt;div&gt;Проспотр общей статистики&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="360" y="1395" width="196.85" height="90.551" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-8" value="UC-04&lt;div&gt;Отметка транзакций как &quot;перевод самому себе&quot;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="690" y="1149.45" width="196.85" height="90.551" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-9" value="UC-05&lt;div&gt;Изменить категорию транзакции&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="690" y="1330" width="196.85" height="90.551" as="geometry" />
+        </mxCell>
+        <mxCell id="SpbB86R2wyn1SRWOFSGj-10" value="UC-06&lt;div&gt;Управлять категориями&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="360" y="1550" width="196.85" height="90.551" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
