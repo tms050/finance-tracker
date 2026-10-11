@@ -27,22 +27,24 @@
 - pytest - тесты
 
 ## Структура репозитория
-finance-tracker/
-├── README.md
-├── requirements.txt
-├── data/
-│ ├── raw/ # PDF-выписки (не в git)
-│ ├── processed/ # промежуточные данные (не в git)
-│ └── db/ # SQLite-файл (не в git)
-├── docs/
-│ ├── requirements/ # требования, схема БД
-│ └── diagrams/ # ERD, Use Case
-├── src/
-│ ├── parser/ # парсинг PDF
-│ ├── core/ # бизнес-логика
-│ ├── db/ # модели SQLAlchemy, миграции
-│ └── ui/ # Streamlit
-└── tests/
+
+finance-tracker/  
+├── README.md  
+├── requirements.txt  
+├── data/  
+│ ├── raw/ # PDF-выписки (не в git)  
+│ ├── processed/ # промежуточные данные (не в git)  
+│ └── db/ # SQLite-файл (не в git)  
+├── docs/  
+│ ├── requirements/ # требования, схема БД  
+│ └── diagrams/ # ERD, Use Case  
+├── src/  
+│ ├── parser/ # парсинг PDF  
+│ ├── core/ # бизнес-логика  
+│ ├── db/ # модели SQLAlchemy, миграции  
+│ └── ui/ # Streamlit  
+└── tests/  
+
 
 ## Запуск
 
