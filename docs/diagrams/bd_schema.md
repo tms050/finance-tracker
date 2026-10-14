@@ -45,7 +45,6 @@
 | `file_name` | TEXT | NOT NULL | Имя загруженного файла |
 | `period_start` | DATE | NULL | Начало периода выписки |
 | `period_end` | DATE | NULL | Конец периода выписки |
-| `uploaded_at` | TIMESTAMP | NOT NULL | Дата и время загрузки |
 | `file_hash` | TEXT | NOT NULL, UNIQUE | Хэш файла (SHA-256) для дедупликации выписок |
 | `created_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Дата создания записи |
 | `updated_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Дата последнего обновления |
@@ -72,8 +71,10 @@
 | `description` | TEXT | NULL | Описание из выписки |
 | `counterparty_name` | TEXT | NULL | Контрагент |
 | `category_id` | INTEGER | NULL, FK -> categories.category_id, ON DELETE SET NULL | Категория транзакции |
-| `is_transfer` | INTEGER | NOT NULL, DEFAULT 0 `|` 1 - перевод самому себе, 0 - обычная. Такие транзакции исключаются из статистики |
+| `authorization_code` | TEXT | NULL | Код авторизации из выписки. Может отсутствовать у отдельных транзакций |
+| `is_transfer` | INTEGER | NOT NULL, DEFAULT 0 \| 1 - перевод самому себе, 0 - обычная. Такие транзакции исключаются из статистики |
 | `transaction_hash` | TEXT | NOT NULL | Хэш транзакции для дедупликации. Уникален в рамках счёта: UNIQUE(account_id, transaction_hash) |
+| `hash_version` | INTEGER | NOT NULL, DEFAULT 1 | Версия формулы расчёта transaction_hash. Позволяет менять формулу без пересчёта старых записей |
 | `source` | TEXT | NOT NULL, CHECK (source IN ('pdf','csv','api','manual')) | Источник транзакции |
 | `created_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Дата создания записи |
 | `updated_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Дата последнего обновления |
@@ -126,7 +127,7 @@
 ## Дедупликация
 
 - **Выписки.** `UNIQUE(file_hash)`. При совпадении система предупреждает пользователя и предлагает отмену, дополнение или перезапись.
-- **Транзакции.** Транзакции. `UNIQUE(account_id, transaction_hash)`. Хэш формируется из account_id, date, time (если есть), amount, currency, description, counterparty_name. Поля, которые пользователь может менять category_id, is_transfer и statement_id в хэш не входят, чтобы правки и повторные загрузки не порождали дубликаты.
+- **Транзакции.** Транзакции. `UNIQUE(account_id, transaction_hash)`. Хэш вычисляется при парсинге и позволяет распознать повторно загруженную транзакцию. Поле `hash_version` позволяет в будущем менять формулу без пересчёта старых записей. При загрузке в v1 всегда используется hash_version = 1. `transaction_hash` вычисляется с использованием полей `account_id`, `date`, `authorization_code`, если последнее поле не null или `account_id`, `date`, `time`.`amount`, `currency`, `description`. При совпадении hash (что практически невозможно) дополнительно сравниваются сопоставимые поля: если они различаются, то транзакция не считается дубликатом.
 
 ## Переводы
 
