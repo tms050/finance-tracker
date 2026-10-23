@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from parser.sber_parser.sber_pdf import BalanceStatus
+from src.parser.sber_parser.sber_pdf import BalanceStatus
 
 
 # --- таблица эталонов ---------------------------------------------------

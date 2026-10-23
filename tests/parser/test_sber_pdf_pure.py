@@ -10,15 +10,15 @@ import json
 
 import pytest
 
-from parser.sber_parser.counterparty import extract_person_name
-from parser.sber_parser.dates import parse_date, parse_time, DATE_RE, TIME_RE
-from parser.sber_parser.amount import (
+from src.parser.sber_parser.counterparty import extract_person_name
+from src.parser.sber_parser.dates import parse_date, parse_time, DATE_RE, TIME_RE
+from src.parser.sber_parser.amount import (
     parse_amount_to_kopecks,
     parse_balance_to_kopecks,
     normalize_currency,
 )
-from parser.sber_parser.config import ParserConfig, ColumnLayout
-from parser.sber_parser.models import (
+from src.parser.sber_parser.config import ParserConfig, ColumnLayout
+from src.parser.sber_parser.models import (
     BalanceCheck,
     BalanceStatus,
     ParseResult,

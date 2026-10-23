@@ -113,10 +113,12 @@ Transaction(
 
 ```
 sber_parser/
-├── money.py       # парсинг дат / времени / сумм + нормализация валюты
+├── amount.py      # парсинг сумм + нормализация валюты
 ├── config.py      # ParserConfig, ColumnLayout
+├── counterparty.py# извлечение имени контрагента
+├── dates.py       # парсинг дат и времени
 ├── models.py      # StatementInfo, Transaction, BalanceCheck, ParseResult
-└── sber_pdf.py      # SberStatementParser — точка входа
+└── sber_pdf.py    # SberStatementParser — точка входа
 ```
 
 **Поток данных:**
@@ -168,6 +170,6 @@ oldest_balance + sum(amount(все операции, кроме самой ст�
 
 ## Предупреждения и ошибки
 
-- **Исключения бросаются только на неправильных аргументах конструкторов** (`ParserConfig`, `ColumnLayout`, `StatementInfo`). Это защита от опечаток в коде, а не от «грязных» PDF.
-- **Всё, что связано с качеством исходных данных**, отражается через`result.warnings` и `balance_check.status`.
+- **Исключения бросаются при системных ошибках** (например, файл не найден или PDF поврежден) и при неправильных аргументах конструкторов (`ParserConfig`, `ColumnLayout`).
+- **Всё, что связано с качеством исходных данных** (нет шапки, странный текст), отражается через `result.warnings` и `balance_check.status`.
 - Парсер **не бросает исключений на «неидеальном» PDF**: если шапка таблицы не найдена, будет использован layout по умолчанию, а в `warnings` появится соответствующая строка.

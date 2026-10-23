@@ -43,27 +43,32 @@ class SberStatementParser:
 
     def parse(self, path: str) -> ParseResult:
         self._warnings = []
-        with pdfplumber.open(path) as pdf:
+        try:
+            with pdfplumber.open(path) as pdf:
 
-            if not pdf.pages:
-                raise ValueError(f"PDF не содержит страниц: {path}")
-            
-            statement = self._extract_statement_info(pdf.pages[0])
-            layout = self._layout or self._find_column_layout(pdf)
-            raw = []
-            for page in pdf.pages:
-                raw.extend(self._parse_page(page, layout))
+                if not pdf.pages:
+                    raise ValueError(f"PDF не содержит страниц: {path}")
+                
+                statement = self._extract_statement_info(pdf.pages[0])
+                layout = self._layout or self._find_column_layout(pdf)
+                raw = []
+                for page in pdf.pages:
+                    raw.extend(self._parse_page(page, layout))
 
-        currency = normalize_currency(statement.currency)
-        transactions = [self._normalize(t, currency) for t in raw]
-        check = self._validate_balance(transactions)
+            currency = normalize_currency(statement.currency)
+            transactions = [self._normalize(t, currency) for t in raw]
+            check = self._validate_balance(transactions)
 
-        return ParseResult(
-            statement=statement,
-            transactions=transactions,
-            balance_check=check,
-            warnings=list(self._warnings),
-        )
+            return ParseResult(
+                statement=statement,
+                transactions=transactions,
+                balance_check=check,
+                warnings=list(self._warnings),
+            )
+        except Exception as e:
+            self.log.error(f"Не удалось открыть или прочитать PDF: {e}")
+            self._warnings.append(f"Ошибка чтения PDF: {e}")
+            return ParseResult(statement=StatementInfo(), warnings=self._warnings) 
 
     # =========================================================
     #  Определение границ колонок
@@ -243,14 +248,15 @@ class SberStatementParser:
             for label in labels:
                 i = find_by_prefix(label)
                 if i is not None:
-                    last = line_tokens[i][-1]
-                    parsed = parse_date(last)
-                    if DATE_RE.match(last):
-                        if field_name == "open_date":
-                            open_date = parsed
-                        else:
-                            close_date = parsed
-                    break
+                    joined = " ".join(line_tokens[i])
+                    dates = date_inline_re.findall(joined)
+                    if dates:
+                        parsed = parse_date(dates[-1])
+                        if parsed:
+                            if field_name == "open_date":
+                                open_date = parsed
+                            else:
+                                close_date = parsed
 
         return StatementInfo(
             fio=fio,
@@ -346,8 +352,10 @@ class SberStatementParser:
 
     def _is_record_start(self, line_words, layout: ColumnLayout) -> bool:
         date_words = self._words_in(line_words, layout.date)
-        return (any(self._is_bold(w) for w in date_words)
-                and any(DATE_RE.match(w["text"]) for w in date_words))
+        has_date = any(DATE_RE.match(w["text"]) for w in date_words)
+        if not has_date:
+            return False
+        return True 
 
     def _parse_record(self, record_lines, layout: ColumnLayout) -> Transaction:
         main = record_lines[0]

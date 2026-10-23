@@ -27,6 +27,10 @@
 | `account_name` | TEXT | NOT NULL | Отображаемое имя счёта |
 | `account_number_masked` | TEXT | NOT NULL | Маскированный номер счёта |
 | `currency` | TEXT | NOT NULL, CHECK (currency IN ('RUB','USD','EUR', 'MULTI')) | Валюта счёта или MULTI для многовалютного счёта |
+| `fio` | TEXT | NULL | ФИО владельца счёта (из `StatementInfo.fio`) |
+| `card_number_masked` | TEXT | NULL | Маскированный номер карты (из `StatementInfo.card_number_masked`) |
+| `open_date` | DATE | NULL | Дата открытия счёта |
+| `close_date` | DATE | NULL | Дата закрытия счёта (NULL — активен) |
 | `created_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Дата создания записи |
 | `updated_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Дата последнего обновления |
 
@@ -72,9 +76,10 @@
 | `counterparty_name` | TEXT | NULL | Контрагент |
 | `category_id` | INTEGER | NULL, FK -> categories.category_id, ON DELETE SET NULL | Категория транзакции |
 | `authorization_code` | TEXT | NULL | Код авторизации из выписки. Может отсутствовать у отдельных транзакций |
+| `raw_category` | TEXT | NULL | Сырая категория из выписки (парсер: `Transaction.category`) |
 | `is_transfer` | INTEGER | NOT NULL, DEFAULT 0 \| 1 - перевод самому себе, 0 - обычная. Такие транзакции исключаются из статистики |
 | `transaction_hash` | TEXT | NOT NULL | Хэш транзакции для дедупликации. Уникален в рамках счёта: UNIQUE(account_id, transaction_hash) |
-| `hash_version` | INTEGER | NOT NULL, DEFAULT 1 | Версия формулы расчёта transaction_hash. Позволяет менять формулу без пересчёта старых записей |
+| `hash_version` | INTEGER | NOT NULL, DEFAULT 1, CHECK (hash_version >= 1) | Версия формулы transaction_hash |
 | `source` | TEXT | NOT NULL, CHECK (source IN ('pdf','csv','api','manual')) | Источник транзакции |
 | `created_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Дата создания записи |
 | `updated_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Дата последнего обновления |
@@ -88,7 +93,7 @@
 - `INDEX(category_id)`;
 - `INDEX(is_transfer)`.
 
-**Назначение `transaction_hash`.** Хэш от набора полей транзакции (дата, сумма, описание/категория, счёт), вычисляемый при парсинге. Позволяет распознать повторно загруженную транзакцию и не создавать дубликат.
+**Назначение `transaction_hash`.** Формула v1 (`hash_version = 1`): если `authorization_code IS NOT NULL` - хэш от (`account_id`, `date`, `authorization_code`); иначе - от (`account_id`, `date`, `time`, `amount`, `currency`, `description`). При совпадении `transaction_hash` в рамках счёта дополнительно сравниваются сопоставимые поля; если они различаются - транзакция не считается дубликатом. Формула живёт в `src/services/hashing.py` (Task B); DB-слой только хранит `transaction_hash` и `hash_version`.
 
 ---
 

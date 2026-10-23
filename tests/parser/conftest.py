@@ -12,7 +12,7 @@ from typing import Optional
 
 import pytest
 
-from parser.sber_parser.sber_pdf import SberStatementParser
+from src.parser.sber_parser.sber_pdf import SberStatementParser
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 

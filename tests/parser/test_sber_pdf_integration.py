@@ -8,7 +8,7 @@ import json
 
 import pytest
 
-from parser.sber_parser.sber_pdf import BalanceStatus, ParseResult
+from src.parser.sber_parser.sber_pdf import BalanceStatus, ParseResult
 
 
 # ---------- базовые инварианты ----------
