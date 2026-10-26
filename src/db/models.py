@@ -64,9 +64,9 @@ class Account(TimestampMixin, Base):
 
     __table_args__ = (
         UniqueConstraint(
-            "bank_name", 
-            "account_number_masked", 
-            name="uq_accounts_bank_number"
+            "bank_name",
+            "account_number_masked",
+            name="uq_accounts_bank_number",
         ),
         CheckConstraint(
             f"currency IN {sql_in_list(ACCOUNT_CURRENCIES)}",
@@ -77,6 +77,26 @@ class Account(TimestampMixin, Base):
             name="ck_accounts_dates_order",
         ),
     )
+
+    def __repr__(self) -> str:
+        return (
+            f"Account(account_id={self.account_id}, "
+            f"bank_name={self.bank_name!r}, "
+            f"account_name={self.account_name!r}, "
+            f"currency={self.currency!r})"
+        )
+
+    def business_key(self) -> str:
+        """Стабильный бизнес-ключ для хэширования транзакций.
+
+        Использование:
+            prepare_statement(..., account_key=account.business_key())
+            add_manual_transaction(..., account_key=account.business_key())
+
+        В отличие от str(account_id), не меняется при пересоздании БД.
+        Формат совпадает с тем, что уже упоминается в README как "bank:sber:****1234".
+        """
+        return f"bank:{self.bank_name}:{self.account_number_masked}"
 
 
 class Statement(TimestampMixin, Base):
@@ -92,10 +112,11 @@ class Statement(TimestampMixin, Base):
     file_hash: Mapped[str] = mapped_column(String, nullable=False, unique=True)
 
     account: Mapped["Account"] = relationship(back_populates="statements")
+
     transactions: Mapped[list["Transaction"]] = relationship(
         back_populates="statement",
-        cascade="all, delete-orphan",
-        passive_deletes=True,
+        cascade="save-update, merge",
+        passive_deletes="all",
     )
 
     __table_args__ = (
@@ -105,6 +126,14 @@ class Statement(TimestampMixin, Base):
             name="ck_statements_period_order",
         ),
     )
+
+    def __repr__(self) -> str:
+        return (
+            f"Statement(statement_id={self.statement_id}, "
+            f"account_id={self.account_id}, "
+            f"file_name={self.file_name!r}, "
+            f"period={self.period_start}..{self.period_end})"
+        )
 
 
 class Category(TimestampMixin, Base):
@@ -145,6 +174,13 @@ class Category(TimestampMixin, Base):
         Index("ix_categories_parent_category_id", "parent_category_id"),
     )
 
+    def __repr__(self) -> str:
+        return (
+            f"Category(category_id={self.category_id}, "
+            f"name={self.name!r}, type={self.type!r}, "
+            f"parent_category_id={self.parent_category_id})"
+        )
+
 
 class Transaction(TimestampMixin, Base):
     __tablename__ = "transactions"
@@ -154,7 +190,7 @@ class Transaction(TimestampMixin, Base):
         ForeignKey("accounts.account_id", ondelete="CASCADE"), nullable=False
     )
     statement_id: Mapped[Optional[int]] = mapped_column(
-        ForeignKey("statements.statement_id", ondelete="CASCADE"), nullable=True
+        ForeignKey("statements.statement_id", ondelete="SET NULL"), nullable=True
     )
     date: Mapped[date] = mapped_column(Date, nullable=False)
     time: Mapped[Optional[time]] = mapped_column(Time, nullable=True)
@@ -205,5 +241,14 @@ class Transaction(TimestampMixin, Base):
         Index("ix_transactions_account_date", "account_id", "date"),
         Index("ix_transactions_statement_id", "statement_id"),
         Index("ix_transactions_category_id", "category_id"),
-        Index("ix_transactions_is_transfer", "is_transfer"),
     )
+
+    def __repr__(self) -> str:
+        desc = (self.description or "")[:30]
+        return (
+            f"Transaction(transaction_id={self.transaction_id}, "
+            f"account_id={self.account_id}, "
+            f"statement_id={self.statement_id}, "
+            f"date={self.date}, amount={self.amount}, "
+            f"description={desc!r})"
+        )

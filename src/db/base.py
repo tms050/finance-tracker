@@ -14,9 +14,8 @@ class Base(DeclarativeBase):
 
 class TimestampMixin:
     """Миксин с полями created_at / updated_at.
-
-    server_default=func.now() — время выставляет сама СУБД (CURRENT_TIMESTAMP).
-    onupdate=func.now() — SQLAlchemy подставит NOW() при UPDATE.
+    server_default=func.now() - время выставляет СУБД.
+    onupdate=func.now() - SQLAlchemy подставит NOW() при UPDATE.
     """
 
     created_at: Mapped[datetime] = mapped_column(

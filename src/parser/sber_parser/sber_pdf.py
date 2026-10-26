@@ -352,10 +352,8 @@ class SberStatementParser:
 
     def _is_record_start(self, line_words, layout: ColumnLayout) -> bool:
         date_words = self._words_in(line_words, layout.date)
-        has_date = any(DATE_RE.match(w["text"]) for w in date_words)
-        if not has_date:
-            return False
-        return True 
+        return (any(self._is_bold(w) for w in date_words)
+                and any(DATE_RE.match(w["text"]) for w in date_words))
 
     def _parse_record(self, record_lines, layout: ColumnLayout) -> Transaction:
         main = record_lines[0]

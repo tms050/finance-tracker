@@ -12,10 +12,13 @@ TRANSACTION_CURRENCIES: Final[tuple[str, ...]] = ("RUB", "USD", "EUR")
 SOURCES: Final[tuple[str, ...]] = ("pdf", "csv", "api", "manual")
 CATEGORY_TYPES: Final[tuple[str, ...]] = ("income", "expense", "transfer")
 IS_TRANSFER_VALUES: Final[tuple[int, ...]] = (0, 1)
-
+ERR_CURRENCY_UNSUPPORTED: Final[str] = "currency_unsupported"
 
 def sql_in_list(values: tuple) -> str:
-    """Рендерит кортеж в SQL-список для CheckConstraint."""
+    """Рендерит кортеж в SQL-список для CheckConstraint.
+    ВАЖНО: возвращает сырой SQL, экранирует только одиночные кавычки
+    для строк. Предназначено ТОЛЬКО для in-code констант
+    """
     return "(" + ", ".join(
         f"'{v}'" if isinstance(v, str) else str(v) for v in values
     ) + ")"
