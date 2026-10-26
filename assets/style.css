@@ -1,0 +1,141 @@
+/* ===================================================================
+   Finance Tracker — общий CSS
+   =================================================================== */
+
+/* ---- Контент ---- */
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    max-width: 1400px;
+}
+
+h1, h2, h3 { font-weight: 600; letter-spacing: -0.01em; }
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.4rem; margin-top: 0.5rem; }
+h3 { font-size: 1.15rem; }
+
+/* ---- Сайдбар ---- */
+[data-testid="stSidebar"] { border-right: 1px solid rgba(128, 128, 128, 0.15); }
+
+[data-testid="stSidebarNav"] a {
+    border-radius: 8px;
+    margin: 2px 10px;
+    padding: 8px 12px;
+    transition: background 0.15s ease;
+}
+[data-testid="stSidebarNav"] a:hover {
+    background: rgba(37, 99, 235, 0.08);
+}
+[data-testid="stSidebarNav"] a[aria-current="page"] {
+    background: rgba(37, 99, 235, 0.12);
+    font-weight: 600;
+}
+
+/* ---- Кнопки ---- */
+.stButton > button, .stDownloadButton > button {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+.stButton > button:hover, .stDownloadButton > button:hover {
+    transform: translateY(-1px);
+}
+
+/* ---- Табы (внутри страниц, не в nav) ---- */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 4px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.18);
+}
+.stTabs [data-baseweb="tab"] {
+    border-radius: 8px 8px 0 0;
+    padding: 8px 16px;
+    font-weight: 500;
+}
+
+/* ---- DataFrame ---- */
+[data-testid="stDataFrame"] {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(128, 128, 128, 0.18);
+}
+
+/* ---- Metric-карточки ---- */
+.metric-card {
+    background: var(--secondary-background-color);
+    border: 1px solid rgba(128, 128, 128, 0.18);
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.metric-label {
+    color: var(--text-color);
+    opacity: 0.62;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+.metric-value {
+    color: var(--text-color);
+    font-size: 24px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+.metric-hint {
+    color: var(--text-color);
+    opacity: 0.55;
+    font-size: 12px;
+    margin-top: 6px;
+}
+.metric-positive .metric-value { color: #16a34a; }
+.metric-negative .metric-value { color: #dc2626; }
+.metric-neutral  .metric-value { color: #2563eb; }
+
+/* Темная тема — Streamlit ставит .dark на body при выборе тёмной темы */
+.dark .metric-positive .metric-value { color: #4ade80; }
+.dark .metric-negative .metric-value { color: #f87171; }
+.dark .metric-neutral  .metric-value { color: #60a5fa; }
+
+/* ---- Формы: чуть аккуратнее инпуты ---- */
+[data-testid="stTextInput"] input,
+[data-testid="stNumberInput"] input,
+[data-testid="stTextArea"] textarea {
+    border-radius: 8px;
+}
+
+/* ---- Alert-сообщения (info/success/warning/error) — меньший радиус ---- */
+[data-testid="stAlert"] { border-radius: 10px; }
+
+/* ---- Иконка внутри подписи metric-карточки ---- */
+.metric-label [data-testid="stIconMaterial"] {
+    font-size: 16px;
+    opacity: 0.65;
+    vertical-align: text-bottom;
+    margin-right: 5px;
+}
+
+/* ---- Контейнеры графиков (st.container(border=True)) ---- */
+[data-testid="stVerticalBlockBorderWrapper"] {
+    border-radius: 12px !important;
+    padding: 6px 4px !important;
+    background: var(--secondary-background-color);
+    border-color: rgba(128, 128, 128, 0.18) !important;
+}
+
+/* ---- Altair-графики: убрать лишние отступы ---- */
+[data-testid="stVegaLiteChart"] {
+    padding-top: 4px;
+}
+
+/* ---- Caption под заголовком страницы ---- */
+[data-testid="stCaptionContainer"] {
+    color: var(--text-color);
+    opacity: 0.75;
+}
