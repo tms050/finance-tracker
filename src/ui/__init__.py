@@ -1,0 +1,1 @@
+"""Streamlit UI для finance-tracker (v1)."""
