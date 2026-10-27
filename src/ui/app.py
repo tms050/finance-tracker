@@ -4,7 +4,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
@@ -179,10 +179,11 @@ def page_transfers() -> None:
 
 
 def page_categories() -> None:
-    _require_account(
+    # Справочник категорий не зависит от счетов: страница должна открываться
+    # и на пустой БД, иначе её вкладки вообще не отрисовываются.
+    _run_with_error_boundary(
         categories_page.render,
-        st.session_state.get("current_account_id"),
-        load_accounts_cached(),
+        account_id=st.session_state.get("current_account_id"),
     )
 
 

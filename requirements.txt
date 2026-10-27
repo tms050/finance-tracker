@@ -1,0 +1,12 @@
+# --- Backend ---
+SQLAlchemy>=2.0,<3.0          # ORM, Mapped / mapped_column (2.x style)
+
+# --- UI ---
+streamlit>=1.30               # st.data_editor и др. требуют >=1.23, ставим свежий
+pandas>=2.0                   # только для UI (data_editor, отображение)
+
+# --- Parsing ---
+pdfplumber>=0.11              # парсинг PDF
+
+# --- Tests ---
+pytest>=8.0
